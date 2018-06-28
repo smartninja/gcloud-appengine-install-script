@@ -1,16 +1,31 @@
 # Installation script for gCloud and AppEngine (standard environment, Python)
 # Author: Patrick Fodor (PatrickVienne), with a bit of help by Matej Ramuta
 
+echo STARTING SMARTNINJA GCLOUD INSTALL SCRIPT
+echo =========================================
+
 # check OS to get correct download link
 if [ "$(uname)" == "Darwin" ]; then
-link="https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-200.0.0-darwin-x86_64.tar.gz";
-else echo "Not Mac";fi
-if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then link="https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-200.0.0-linux-x86_64.tar.gz"; else echo "Not Linux"; fi
-echo ${link}
+    link="https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-200.0.0-darwin-x86_64.tar.gz";
+    platform="MAC";
+fi
+if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    link="https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-200.0.0-linux-x86_64.tar.gz";
+    platform="LINUX";
+fi
+
+echo Platform is ${platform}
+echo Using download link: ${link}
+
+cd ~
 
 # Download gcloud sdk
-if [ ! -d ~/google-cloud-sdk ]; then curl "$link" | tar xvz -C ~; else echo "google-cloud-sdk folder already downloaded in home directory"; fi
-cd ~
+if [ ! -d ~/google-cloud-sdk ]; then
+    curl "$link" | tar xvz -C ~;
+else
+    echo "google-cloud-sdk folder already downloaded in home directory";
+fi
+
 bash ./google-cloud-sdk/install.sh --quiet
 
 # export binaries directory to path
@@ -31,8 +46,8 @@ else
     if [ -f ~/.bash_profile ]; then
         echo .bash_profile exists; 
     else
-	echo Creating .bash_profile File; 
-	touch .bash_profile;
+        echo Creating .bash_profile File;
+        touch .bash_profile;
     fi
 
     if grep -F "$GCLOUD_DIR" .bash_profile;  then
@@ -53,4 +68,4 @@ gcloud components install app-engine-python-extras --quiet
 echo ALL INSTALLATION FINISHED
 echo =========================
 
-echo PLEASE RESTART YOUR SHELL NOW!!
+echo PLEASE RESTART YOUR SHELL NOW!!!
