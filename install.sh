@@ -62,7 +62,7 @@ fi
 
 # install gcloud components
 gcloud components update --quiet
-gcloud components install app-engine-python   --quiet
+gcloud components install app-engine-python --quiet
 gcloud components install app-engine-python-extras --quiet
 
 echo ALL INSTALLATION FINISHED
