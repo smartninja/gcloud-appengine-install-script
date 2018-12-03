@@ -5,7 +5,7 @@ echo STARTING SMARTNINJA GCLOUD INSTALL SCRIPT
 echo =========================================
 
 # check OS to get correct download link
-if [ "$(uname)" == "Darwin" ]; then
+if [ "$(uname)" = "Darwin" ]; then
     link="https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-200.0.0-darwin-x86_64.tar.gz";
     platform="MAC";
 else
@@ -36,7 +36,7 @@ bash ./google-cloud-sdk/install.sh --quiet
 export GCLOUD_DIR=$(cd google-cloud-sdk/bin; pwd)
 
 # check if directory is in the path
-if [ :$PATH: == *:"$GCLOUD_DIR":* ] ; then
+if [ :$PATH: = *:"$GCLOUD_DIR":* ] ; then
     echo '${GCLOUD_DIR}' already in path;
 else
     echo Adding GCLOUD Binaries Path: '${GCLOUD_DIR}' to Path and .bash_profile file;
