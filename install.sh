@@ -47,11 +47,19 @@ else
     bash google-cloud-sdk/completion.bash.inc;
  
     export PATH=$PATH:$GCLOUD_DIR
+    
     if [ -f ~/.bash_profile ]; then
         echo .bash_profile exists; 
     else
         echo Creating .bash_profile File;
         touch .bash_profile;
+    fi
+    
+    if [ -f ~/.bashrc ]; then
+        echo .bashrc exists; 
+    else
+        echo Creating .bashrc File;
+        touch .bashrc;
     fi
 
     if grep -F "$GCLOUD_DIR" .bash_profile;  then
@@ -61,7 +69,15 @@ else
         echo "export PATH=$NEW_PATH" >> .bash_profile;
     fi
     
+    if grep -F "$GCLOUD_DIR" .bashrc;  then
+        echo already added to .bashrc
+    else
+        echo adding to .bashrc
+        echo "export PATH=$NEW_PATH" >> .bashrc;
+    fi
+    
     source .bash_profile;
+    source .bashrc;
 fi
 
 # install gcloud components
@@ -73,3 +89,4 @@ echo ALL INSTALLATION FINISHED
 echo =========================
 
 echo PLEASE RESTART YOUR SHELL NOW!!!
+bash
