@@ -8,10 +8,14 @@ echo =========================================
 if [ "$(uname)" == "Darwin" ]; then
     link="https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-200.0.0-darwin-x86_64.tar.gz";
     platform="MAC";
-fi
-if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+else
     link="https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-200.0.0-linux-x86_64.tar.gz";
     platform="LINUX";
+    
+    # check if curl exists
+    if [ ! curl ]; then
+        sudo apt-get install curl
+    fi
 fi
 
 echo Platform is ${platform}
